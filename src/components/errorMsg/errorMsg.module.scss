@@ -1,0 +1,19 @@
+.error-msg {
+  margin-top: 28px;
+  background-color: #ff6961;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.close-icon {
+  float: right;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-icon:hover {
+  color: black;
+}

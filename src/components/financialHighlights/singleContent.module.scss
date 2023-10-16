@@ -1,0 +1,52 @@
+@import "../../app/globals.module.scss";
+
+.master-container {
+  padding: 0 20px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(150px);
+    transition: all 1s;
+
+    &.visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    .image-container {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .text {
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+}
+
+@media only screen and (min-width: #{$tablet}) and (max-width: 8000px) {
+  .master-container {
+    .container {
+      .text {
+        margin-top: 1rem;
+      }
+    }
+  }
+}

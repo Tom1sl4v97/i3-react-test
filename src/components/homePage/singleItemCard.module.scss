@@ -1,0 +1,114 @@
+@import "../../app/globals.module.scss";
+
+.card {
+  padding: 20px;
+  transition: all 0.3s ease;
+
+  .circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: $primary-blue-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+
+    &-text {
+      fill: black;
+      font-size: 42px;
+      font-weight: bolder;
+      background-color: $primary-blue-dark;
+    }
+  }
+
+  .text {
+    text-transform: uppercase;
+    width: 200px;
+    height: 60px;
+    margin-top: 48px;
+    font-size: 18px;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 8000px) {
+  .card {
+    .text {
+      margin-top: 20px;
+    }
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 649px) {
+  .card {
+    .circle {
+      width: 250px;
+      height: 250px;
+    }
+
+    .text {
+      font-size: 20px;
+      width: 250px;
+    }
+  }
+}
+
+@media only screen and (min-width: 650px) and (max-width: 849px) {
+  .card {
+    .circle {
+      width: 300px;
+      height: 300px;
+    }
+
+    .text {
+      font-size: 22px;
+      width: 300px;
+    }
+  }
+}
+
+@media only screen and (min-width: 850px) and (max-width: 991px) {
+  .card {
+    .circle {
+      width: 350px;
+      height: 350px;
+    }
+
+    .text {
+      font-size: 24px;
+      width: 350px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1280px) and (max-width: 1400px) {
+  .card {
+    .circle {
+      width: 250px;
+      height: 250px;
+    }
+
+    .text {
+      font-size: 20px;
+      width: 250px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1401px) and (max-width: 8000px) {
+  .card {
+    .circle {
+      width: 300px;
+      height: 300px;
+    }
+
+    .text {
+      font-size: 22px;
+      width: 300px;
+    }
+  }
+}

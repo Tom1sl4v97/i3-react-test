@@ -1,0 +1,14 @@
+@import "../../app/globals.module.scss";
+
+.container-animation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  grid-template-rows: auto;
+}
+
+@media only screen and (min-width: #{$tablet}) and (max-width: 8000px) {
+  .container-animation {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

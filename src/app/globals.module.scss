@@ -1,0 +1,24 @@
+$primary-blue: #174dc2;
+$primary-blue-dark: #26338b;
+$primary-blue-light: #28ade2;
+
+$mobile: 375px;
+$tablet: 992px;
+$lg: 1280px;
+$xl: 1920px;
+$xl2: 2560px;
+$xl3: 3840px;
+
+.svg-icon {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+  margin-left: 6px;
+  fill: white;
+}
+
+.body {
+  margin: 0;
+  padding: 0;
+  font: 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

@@ -1,0 +1,95 @@
+@import '../../app/globals.module.scss';
+
+.navigation {
+  background-color: $primary-blue-dark;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-container {
+    max-width: 1600px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 0px 8%;
+
+    &-item {
+      display: flex;
+      justify-content: center;
+      max-width: 45%;
+      width: 100%;
+
+      &-chield {
+        color: white;
+        text-decoration: none;
+        display: block;
+        width: max-content;
+        height: 100%;
+        padding: 16px 24px;
+        border-bottom: 1px solid $primary-blue;
+        border-radius: 40px;
+        transition: background-color 0.5s ease;
+        cursor: pointer;
+      }
+
+      &-chield:hover {
+        background-color: $primary-blue;
+        border-radius: 40px;
+        transition: background-color 0.5s ease;
+      }
+    }
+
+    &-image {
+      position: relative;
+      overflow: hidden;
+      max-width: 5%;
+      width: 50px;
+
+      &-logo {
+        height: 60px;
+        transform: translateY(36px);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: #{$lg}) and (max-width: #{$xl - 1px}) {
+  .navigation-container {
+    padding: 0px 15%;
+    
+  }
+}
+
+@media only screen and (min-width: #{$tablet}) and (max-width: 1070px) {
+  .navigation-container {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: #{$xl}) and (max-width: #{$xl2 - 1px}) {
+  .navigation-container {
+    padding: 0px 20%;
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: #{$xl2}) and (max-width: #{$xl3 - 1px}) {
+  .navigation-container {
+    padding: 0px 25%;
+    font-size: 22px;
+  }
+}
+
+@media only screen and (min-width: #{$xl3}) and (max-width: #{$xl3 * 2 - 1px}) {
+  .navigation-container {
+    padding: 0px 30%;
+    font-size: 24px;
+  }
+}

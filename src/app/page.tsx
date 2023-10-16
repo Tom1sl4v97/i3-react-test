@@ -1,95 +1,100 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
 
-export default function Home() {
+import { useState, useEffect, use, useMemo } from "react";
+import { useFetchDataContentfulHP } from "@/hooks/fetchDataContentful";
+import { useWindowWidth } from "@/hooks/getWindowWodth";
+
+import styles from "./page.module.scss";
+import { Loader } from "@/components/loader/loader";
+import { NavigationHandler } from "@/components/navigation/navigationHandler";
+import { ErrorMsg } from "@/components/errorMsg/errorMsg";
+import { ImageGalleryDesktop } from "@/components/homePage/imageGalleryDesktop";
+import { ImageGalleryMobile } from "@/components/homePage/imageGalleryMobile";
+
+const numberOfItemsPerPageMobile = 1;
+const numberOfItemsPerPageDesktop = 3;
+
+export default function Page() {
+  const windowWidth = useWindowWidth();
+  const [mobileSize, setMobileSize] = useState(windowWidth < 992);
+  const [numberOfItemsPerPage, setNumberOfItemsPerPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const numberOfSkipItems = useMemo(
+    () => (currentPage - 1) * numberOfItemsPerPage,
+    [currentPage, numberOfItemsPerPage]
+  );
+
+  useEffect(() => {
+    if (windowWidth < 992) {
+      if (numberOfItemsPerPage !== numberOfItemsPerPageMobile) {
+        setNumberOfItemsPerPage(numberOfItemsPerPageMobile);
+        setMobileSize(true);
+      }
+    } else if (numberOfItemsPerPage !== numberOfItemsPerPageDesktop) {
+      setNumberOfItemsPerPage(numberOfItemsPerPageDesktop);
+      setCurrentPage(1);
+      setMobileSize(false);
+    }
+  }, [windowWidth]);
+
+  const { loading, data, error, totalItems } = useFetchDataContentfulHP(
+    numberOfSkipItems,
+    numberOfItemsPerPage
+  );
+
+  const nextPageHandler = () => {
+    if (currentPage * numberOfItemsPerPage < totalItems) {
+      setCurrentPage(currentPage + 1);
+    } else {
+      setCurrentPage(1);
+    }
+  };
+
+  const previousPageHandler = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    } else {
+      setCurrentPage(Math.ceil(totalItems / numberOfItemsPerPage));
+    }
+  };
+
+  const goToPageHandler = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <div>
+      <NavigationHandler />
+
+      {/* <ErrorMsg errorMsg={"Testiranje, OVO NIJE STVARNI ERROR"} /> */}
+
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <ErrorMsg errorMsg={error} />
+      ) : (
+        <div className={styles.body}>
+          {mobileSize ? (
+            <ImageGalleryMobile
+              imageGalleryArray={data}
+              currentPage={currentPage}
+              nextPageHandler={nextPageHandler}
+              previousPageHandler={previousPageHandler}
+              goToPageHandler={goToPageHandler}
+              totalItems={totalItems}
             />
-          </a>
+          ) : (
+            <ImageGalleryDesktop imageGalleryArray={data} 
+            currentPage={currentPage}
+            nextPageHandler={nextPageHandler}
+            previousPageHandler={previousPageHandler}
+            goToPageHandler={goToPageHandler}
+            totalItems={totalItems}
+            />
+          )}
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      )}
+    </div>
+  );
 }
